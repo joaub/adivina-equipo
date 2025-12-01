@@ -40,7 +40,15 @@ function App() {
           >
             Verificar
           </button>
-          
+          {mensaje === "correcto" && (
+            <p className="text-green-400 text-xl font-semibold">¡Correcto! 🎉</p>
+          )}
+
+          {mensaje === "incorrecto" && (
+            <p className="text-red-400 text-xl font-semibold">
+              Incorrecto 😢 Era: {equipoActual.nombre}
+            </p>
+          )}
         </div>
       </div>
 
