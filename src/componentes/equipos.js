@@ -6,3 +6,7 @@ export const LIGA_ARGENTINA  = [
     {   nombre: "San Lorenzo",img:"/public/escudos/ligaArgentina/san-lorenzo.png"},
     
 ]
+export const LIGA_ESPAÑOLA = [
+    {   nombre: "Barcelona",img:"/public/escudos/ligaEspaña/barcelona.png"},
+    {   nombre: "Real Madrid",img:"/public/escudos/ligaEspaña/real-madrid.png"},
+]
