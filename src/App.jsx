@@ -9,6 +9,8 @@ function App() {
   const [equipoActual, setEquipoActual] = useState(null);
   const [respuesta, setRespuesta] = useState("");
   const [mensaje, setMensaje] = useState("");
+  const [equiposRestantes, setEquiposRestantes] = useState([]);
+  const [completado, setCompletado] = useState(false);
 
   const verificar = () => {
     if (respuesta.trim() === "") {
@@ -23,13 +25,36 @@ function App() {
   };
 
   const seleccionarLiga = (ligaArray) => {
+    const copia = [...ligaArray];
+    const random = copia[Math.floor(Math.random() * copia.length)];
+
     setLigaSeleccionada(ligaArray);
-    setEquipoActual(ligaArray[Math.floor(Math.random() * ligaArray.length)]);
+    setEquipoActual(random);
+    setEquiposRestantes(copia.filter(e => e !== random));
+    setCompletado(false);
+    setRespuesta("");
+    setMensaje("");
   };
 
   const siguiente = () => {
-    const equipos = ligaSeleccionada;
-    setEquipoActual(equipos[Math.floor(Math.random() * equipos.length)]);
+    if (equiposRestantes.length === 0) {
+      setCompletado(true);
+      return;
+    }
+    const copia = [...equiposRestantes];
+    const random = copia[Math.floor(Math.random() * copia.length)];
+
+    setEquipoActual(random);
+    setEquiposRestantes(copia.filter(e => e !== random));
+    setRespuesta("");
+    setMensaje("");
+  };
+
+  const reiniciar = () => {
+    setLigaSeleccionada(null);
+    setEquipoActual(null);
+    setEquiposRestantes([]);
+    setCompletado(false);
     setRespuesta("");
     setMensaje("");
   };
@@ -59,6 +84,8 @@ function App() {
             mensaje={mensaje}
             verificar={verificar}
             siguiente={siguiente}
+            reiniciar={reiniciar}
+            completado={completado}
           />
         )}
       </div>
