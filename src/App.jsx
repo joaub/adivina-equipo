@@ -50,9 +50,18 @@ function App() {
         <div>
           {ligaSeleccionada && equipoActual && (
             <div>
-              
-              <img src={equipoActual.img} 
+
+              <img src={equipoActual.img}
                 className='w-50 h-50 items-center rounded-xl blur-sm m-4 bg-white' />
+
+              
+              <p className="text-3xl text-center mt-4 p-2 ">
+                {equipoActual.nombre
+                  .split("")
+                  .map(c => (c === " " ? "\u00A0\u00A0"  // agrega un espacio visible
+                    : "_ "))
+                  .join(" ")}
+              </p>
 
               <div className='p-5 mt-7'>
                 <input
