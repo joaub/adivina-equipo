@@ -59,7 +59,7 @@ function App() {
     setEquiposRestantes(copia.filter(e => e !== random));
     setRespuesta("");
     setMensaje("");
-    
+    setVidas(3);
   };
 
   const reiniciar = () => {
@@ -69,6 +69,8 @@ function App() {
     setCompletado(false);
     setRespuesta("");
     setMensaje("");
+    setVidas(3);
+    setPerdiste(false);
   };
 
   return (
