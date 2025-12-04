@@ -15,7 +15,7 @@ export default function Juego({
 
             <img
                 src={equipoActual.img}
-                className="w-50 h-50 rounded-xl blur-sm m-4 bg-white "
+                className="w-50 h-50 rounded-xl blur-sm m-4 bg-white mx-auto block"
             />
 
             <p className="text-3xl text-center mt-4 p-2">
