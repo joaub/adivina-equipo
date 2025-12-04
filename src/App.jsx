@@ -11,6 +11,8 @@ function App() {
   const [mensaje, setMensaje] = useState("");
   const [equiposRestantes, setEquiposRestantes] = useState([]);
   const [completado, setCompletado] = useState(false);
+  const [vidas, setVidas] = useState(3);
+  const [perdiste, setPerdiste] = useState(false);
 
   const verificar = () => {
     if (respuesta.trim() === "") {
@@ -21,6 +23,15 @@ function App() {
       setMensaje("correcto");
     } else {
       setMensaje("incorrecto");
+      setVidas(prev => {
+        const nuevas = prev - 1;
+
+        if (nuevas <= 0) {
+          setPerdiste(true);
+        }
+
+        return nuevas;
+      });
     }
   };
 
@@ -48,6 +59,7 @@ function App() {
     setEquiposRestantes(copia.filter(e => e !== random));
     setRespuesta("");
     setMensaje("");
+    
   };
 
   const reiniciar = () => {
@@ -86,8 +98,11 @@ function App() {
             siguiente={siguiente}
             reiniciar={reiniciar}
             completado={completado}
+            vidas={vidas}
+            perdiste={perdiste}
           />
         )}
+        
       </div>
 
     </>

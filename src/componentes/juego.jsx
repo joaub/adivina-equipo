@@ -7,7 +7,9 @@ export default function Juego({
     verificar,
     siguiente,
     completado,
-    reiniciar
+    reiniciar,
+    vidas,
+    perdiste
 }) {
 
     return (
@@ -15,7 +17,8 @@ export default function Juego({
 
             <img
                 src={equipoActual.img}
-                className="w-50 h-50 rounded-xl blur-sm m-4 bg-white mx-auto block"
+                className={`w-50 h-50 rounded-xl m-4 bg-white mx-auto block 
+                ${vidas > 1 ? "blur-sm" : ""} `}
             />
 
             <p className="text-3xl text-center mt-4 p-2">
@@ -27,6 +30,9 @@ export default function Juego({
             {/* Mostrar cantidad de letras */}
             <p className="text-xl text-center mt-4 tracking-widest font-bold">
                 {equipoActual.nombre.replace(/\s/g, "").replace(/[^a-zA-Z]/g, "").length} letras
+            </p>
+            <p className="text-xl font-bold mb-4">
+                ❤️ Vidas: {vidas}
             </p>
 
             <div className="p-5 mt-7">
@@ -69,6 +75,20 @@ export default function Juego({
                 <div className="text-center mt-10">
                     <p className="text-3xl font-bold text-green-400">
                         ¡Liga completada! 🎉
+                    </p>
+
+                    <button
+                        onClick={reiniciar}
+                        className="mt-6 px-6 py-3 bg-blue-500 text-white rounded-xl"
+                    >
+                        Volver al menú
+                    </button>
+                </div>
+            )}
+            {perdiste && (
+                <div className="text-center mt-10">
+                    <p className="text-3xl font-bold text-red-400">
+                        ¡Has perdido! 😢
                     </p>
 
                     <button
