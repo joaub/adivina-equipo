@@ -38,6 +38,7 @@ export default function Juego({
             <div className="p-5 mt-7">
                 <input
                     value={respuesta}
+                    onKeyDown={(e) => e.key === "Enter" && verificar()}
                     onChange={(e) => setRespuesta(e.target.value)}
                     placeholder="Escribe el nombre del equipo..."
                     className={`w-72 rounded-xl border text-center 
@@ -67,7 +68,8 @@ export default function Juego({
             )}
 
             {mensaje !== "respuesta vacia" && mensaje !== "" && mensaje !== "incorrecto" && (
-                <button onClick={siguiente} className="px-6 py-2 border rounded-lg mt-4">
+                <button onClick={siguiente} 
+                className="px-6 py-2 border rounded-lg mt-4">
                     Siguiente
                 </button>
             )}
