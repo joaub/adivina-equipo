@@ -13,6 +13,7 @@ function App() {
   const [completado, setCompletado] = useState(false);
   const [vidas, setVidas] = useState(3);
   const [perdiste, setPerdiste] = useState(false);
+  const [puntos, setPuntos] = useState(0);
 
   const verificar = () => {
     if (respuesta.trim() === "") {
@@ -21,6 +22,8 @@ function App() {
     }
     if (respuesta.trim().toLowerCase() === equipoActual.nombre.toLowerCase()) {
       setMensaje("correcto");
+      setPuntos(p => p + 1);
+      return;
     } else {
       setMensaje("incorrecto");
       setVidas(prev => {
@@ -77,6 +80,7 @@ function App() {
     setMensaje("");
     setVidas(3);
     setPerdiste(false);
+    setPuntos(0); 
   };
 
   return (
@@ -108,7 +112,7 @@ function App() {
             completado={completado}
             vidas={vidas}
             perdiste={perdiste}
-            
+            puntos={puntos} 
           />
         )}
         

@@ -11,10 +11,11 @@ export default function Juego({
     completado,
     reiniciar,
     vidas,
-    perdiste
+    perdiste,
+    puntos
 }) {
 
-    
+
 
     return (
         <div className="text-center">
@@ -24,6 +25,9 @@ export default function Juego({
                 className={`w-50 h-50 rounded-xl m-4 bg-white mx-auto block 
                 ${vidas > 1 ? "blur-sm" : ""} `}
             />
+            <p className="text-xl font-bold mt-2">
+                ⭐ Puntos: {puntos}
+            </p>
 
             <p className="text-3xl text-center mt-4 p-2">
                 {equipoActual.nombre
