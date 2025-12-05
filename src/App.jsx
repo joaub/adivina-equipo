@@ -16,6 +16,8 @@ function App() {
   const [puntos, setPuntos] = useState(0);
 
   const verificar = () => {
+    if (mensaje === "correcto") return;
+    
     if (respuesta.trim() === "") {
       setMensaje("respuesta vacia");
       return;

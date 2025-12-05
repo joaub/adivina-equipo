@@ -30,6 +30,25 @@ export const LIGA_ARGENTINA  = [
     { nombre:"Aldosivi", img:"/public/escudos/ligaArgentina/aldosivi.png" },
 ]
 export const LIGA_ESPAÑOLA = [
+    {   nombre: "Alaves",img:"/public/escudos/ligaEspaña/alaves.png"},
+    {   nombre: "Athletic de Bilbao",img:"/public/escudos/ligaEspaña/athletic_club.png"},
     {   nombre: "Barcelona",img:"/public/escudos/ligaEspaña/barcelona.png"},
     {   nombre: "Real Madrid",img:"/public/escudos/ligaEspaña/real-madrid.png"},
+    {   nombre: "Atletico de Madrid",img:"/public/escudos/ligaEspaña/atletico-madrid.png"},
+    {   nombre: "Celta de Vigo",img:"/public/escudos/ligaEspaña/celta_de_vigo.png"},
+    {   nombre: "Sevilla",img:"/public/escudos/ligaEspaña/sevilla.png"},
+    {  nombre: "Espanyol",img:"/public/escudos/ligaEspaña/espanyol.png"},
+    {  nombre: "Girona",img:"/public/escudos/ligaEspaña/girona.png"},
+    {  nombre: "Levante",img:"/public/escudos/ligaEspaña/levante.png"},
+    {   nombre: "Real Sociedad",img:"/public/escudos/ligaEspaña/real_sociedad.png"},
+    {  nombre: "Elche",img:"/public/escudos/ligaEspaña/elche.png"},
+    {   nombre: "Real Betis",img:"/public/escudos/ligaEspaña/real_betis.png"},
+    {  nombre: "Real Oviedo",img:"/public/escudos/ligaEspaña/real-oviedo.png"},
+    {  nombre: "Rayo Vallecano",img:"/public/escudos/ligaEspaña/rayo_vallecano.png"},
+    {  nombre: "Mallorca",img:"/public/escudos/ligaEspaña/mallorca.png"},
+    {  nombre: "Getafe",img:"/public/escudos/ligaEspaña/getafe.png"},
+    {  nombre: "Osasuna",img:"/public/escudos/ligaEspaña/osasuna.png"},
+    {   nombre: "Valencia",img:"/public/escudos/ligaEspaña/valencia.png"},
+    {   nombre: "Villarreal",img:"/public/escudos/ligaEspaña/villarreal.png"},
+    
 ]
