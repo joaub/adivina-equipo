@@ -1,3 +1,5 @@
+
+
 export default function Juego({
     darkMode,
     equipoActual,
@@ -11,6 +13,8 @@ export default function Juego({
     vidas,
     perdiste
 }) {
+
+    
 
     return (
         <div className="text-center">
@@ -68,8 +72,8 @@ export default function Juego({
             )}
 
             {mensaje !== "respuesta vacia" && mensaje !== "" && mensaje !== "incorrecto" && (
-                <button onClick={siguiente} 
-                className="px-6 py-2 border rounded-lg mt-4">
+                <button onClick={siguiente}
+                    className="px-6 py-2 border rounded-lg mt-4">
                     Siguiente
                 </button>
             )}

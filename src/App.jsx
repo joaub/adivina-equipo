@@ -26,6 +26,12 @@ function App() {
       setVidas(prev => {
         const nuevas = prev - 1;
 
+        if (navigator.vibrate) {
+        navigator.vibrate(300); // vibra 300 ms
+        console.log(navigator.vibrate ? "Soporta vibración" : "NO soporta vibración");
+      }
+
+
         if (nuevas <= 0) {
           setPerdiste(true);
         }
@@ -102,6 +108,7 @@ function App() {
             completado={completado}
             vidas={vidas}
             perdiste={perdiste}
+            
           />
         )}
         
