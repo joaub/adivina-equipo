@@ -12,7 +12,8 @@ export default function Juego({
     reiniciar,
     vidas,
     perdiste,
-    puntos
+    puntos,
+    racha
 }) {
 
 
@@ -28,6 +29,7 @@ export default function Juego({
             <p className="text-xl font-bold mt-2">
                 ⭐ Puntos: {puntos}
             </p>
+            <p className="text-lg mt-1">🔥 Racha: {racha}</p>
 
             <p className="text-3xl text-center mt-4 p-2">
                 {equipoActual.nombre

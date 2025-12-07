@@ -14,17 +14,35 @@ function App() {
   const [vidas, setVidas] = useState(3);
   const [perdiste, setPerdiste] = useState(false);
   const [puntos, setPuntos] = useState(0);
+  const [racha, setRacha] = useState(0);
+  const [yaAcertado, setYaAcertado] = useState(false);
 
   const verificar = () => {
     if (mensaje === "correcto") return;
-    
+
     if (respuesta.trim() === "") {
       setMensaje("respuesta vacia");
       return;
     }
     if (respuesta.trim().toLowerCase() === equipoActual.nombre.toLowerCase()) {
       setMensaje("correcto");
-      setPuntos(p => p + 1);
+
+      const manejarAcierto = () => {
+        if (yaAcertado) return; // evita que siga sumando
+
+        let puntosGanados = 0;
+
+        if (racha === 0) {
+          puntosGanados = 1;
+        } else {
+          puntosGanados = 1 + racha;
+        }
+
+        setPuntos(prev => prev + puntosGanados);
+        setRacha(prev => prev + 1);
+        setYaAcertado(true);
+      };
+      manejarAcierto();
       return;
     } else {
       setMensaje("incorrecto");
@@ -32,9 +50,9 @@ function App() {
         const nuevas = prev - 1;
 
         if (navigator.vibrate) {
-        navigator.vibrate(300); // vibra 300 ms
-        console.log(navigator.vibrate ? "Soporta vibración" : "NO soporta vibración");
-      }
+          navigator.vibrate(300); // vibra 300 ms
+          console.log(navigator.vibrate ? "Soporta vibración" : "NO soporta vibración");
+        }
 
 
         if (nuevas <= 0) {
@@ -48,7 +66,7 @@ function App() {
 
   const seleccionarLiga = (ligaArray) => {
     const copia = [...ligaArray];
-    const random = copia[Math.floor(Math.random() * copia.length)];
+    const random = copia.splice(Math.floor(Math.random() * copia.length), 1)[0];
 
     setLigaSeleccionada(ligaArray);
     setEquipoActual(random);
@@ -56,6 +74,11 @@ function App() {
     setCompletado(false);
     setRespuesta("");
     setMensaje("");
+    setPerdiste(false);
+    setCompletado(false);
+
+    setPuntos(0);
+    setRacha(0);
   };
 
   const siguiente = () => {
@@ -71,6 +94,7 @@ function App() {
     setRespuesta("");
     setMensaje("");
     setVidas(3);
+    setYaAcertado(false);
   };
 
   const reiniciar = () => {
@@ -82,7 +106,8 @@ function App() {
     setMensaje("");
     setVidas(3);
     setPerdiste(false);
-    setPuntos(0); 
+    setPuntos(0);
+    setRacha(0);
   };
 
   return (
@@ -114,10 +139,11 @@ function App() {
             completado={completado}
             vidas={vidas}
             perdiste={perdiste}
-            puntos={puntos} 
+            puntos={puntos}
+            racha={racha}
           />
         )}
-        
+
       </div>
 
     </>
