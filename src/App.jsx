@@ -16,6 +16,33 @@ function App() {
   const [puntos, setPuntos] = useState(0);
   const [racha, setRacha] = useState(0);
   const [yaAcertado, setYaAcertado] = useState(false);
+  const [ligaActual, setLigaActual] = useState(null);
+  const [tabla, setTabla] = useState(() => {
+  try {
+    const saved = localStorage.getItem("tablaPuntajes");
+
+    if (!saved) return [];
+
+    const parsed = JSON.parse(saved);
+
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+});
+
+
+  const guardarPuntaje = (ligaActual, puntosFinales) => {
+    const entrada = {
+      liga: ligaActual === LIGA_ARGENTINA ? "Liga Argentina" : "LaLiga España",
+      puntos: puntosFinales,
+      fecha: new Date().toLocaleDateString(),
+    };
+  
+    const nuevaTabla = [...tabla, entrada];
+    setTabla(nuevaTabla);
+    localStorage.setItem("tablaPuntajes", JSON.stringify(nuevaTabla));
+  };
 
   const verificar = () => {
     if (mensaje === "correcto") return;
@@ -57,6 +84,7 @@ function App() {
 
         if (nuevas <= 0) {
           setPerdiste(true);
+          guardarPuntaje(seleccionarLiga, puntos);
         }
 
         return nuevas;
@@ -64,10 +92,11 @@ function App() {
     }
   };
 
-  const seleccionarLiga = (ligaArray) => {
+  const seleccionarLiga = (ligaArray,nombre) => {
     const copia = [...ligaArray];
     const random = copia.splice(Math.floor(Math.random() * copia.length), 1)[0];
 
+    setLigaActual(nombre);          
     setLigaSeleccionada(ligaArray);
     setEquipoActual(random);
     setEquiposRestantes(copia.filter(e => e !== random));
@@ -84,6 +113,7 @@ function App() {
   const siguiente = () => {
     if (equiposRestantes.length === 0) {
       setCompletado(true);
+      guardarPuntaje(seleccionarLiga, puntos);
       return;
     }
     const copia = [...equiposRestantes];
@@ -123,6 +153,7 @@ function App() {
             seleccionarLiga={seleccionarLiga}
             LIGA_ARGENTINA={LIGA_ARGENTINA}
             LIGA_ESPAÑOLA={LIGA_ESPAÑOLA}
+            tabla={tabla}
           />
         )}
 
