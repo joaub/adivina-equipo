@@ -32,12 +32,12 @@ function App() {
 });
 
 
-  const guardarPuntaje = (ligaActual, puntosFinales) => {
+  const guardarPuntaje = () => {
     const entrada = {
-      liga: ligaActual === LIGA_ARGENTINA ? "Liga Argentina" : "LaLiga España",
-      puntos: puntosFinales,
-      fecha: new Date().toLocaleDateString(),
-    };
+    liga: ligaActual,                     // ← AHORA ES UN STRING
+    puntos: puntos,
+    fecha: new Date().toLocaleDateString(),
+  };
   
     const nuevaTabla = [...tabla, entrada];
     setTabla(nuevaTabla);
