@@ -1,5 +1,13 @@
-export default function LigaSelector({ darkMode, setDarkMode, 
-    seleccionarLiga, LIGA_ARGENTINA, LIGA_ESPAÑOLA,tabla }) {
+export default function LigaSelector({ darkMode, setDarkMode,
+    seleccionarLiga, LIGA_ARGENTINA, LIGA_ESPAÑOLA, tabla, setTabla }) {
+
+
+    const eliminarHistorial = () => {
+        if (window.confirm("¿Seguro que querés borrar el historial de puntajes?")) {
+            setTabla([]);  // Vacía la tabla en el estado
+            localStorage.removeItem("tablaPuntajes"); // Borra del localStorage
+        }
+    };
 
     return (
         <div>
@@ -34,7 +42,10 @@ export default function LigaSelector({ darkMode, setDarkMode,
                             <b>{t.liga}</b>: {t.puntos} pts — <i>{t.fecha}</i>
                         </p>
                     ))}
+                    <button onClick={eliminarHistorial}>Eliminar historial</button>
+                
                 </div>
+
             </div>
         </div>
     );
