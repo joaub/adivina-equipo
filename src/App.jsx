@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { LIGA_ESPAÑOLA, LIGA_ARGENTINA } from './componentes/equipos'
+import { LIGA_ESPAÑOLA, LIGA_ARGENTINA,PREMIER_LEAGUE } from './componentes/equipos'
 import LigaSelector from "./componentes/elegirLiga";
 import Juego from "./componentes/juego";
 
@@ -145,7 +145,7 @@ function App() {
   return (
     <>
       <div
-        className={`min-h-screen flex flex-col items-center p-5 ${darkMode ? "bg-gray-700 text-white" : "bg-gray-200 text-black"
+        className={`min-h-screen flex flex-col items-center p-5  ${darkMode ? "bg-gray-700 text-white" : "bg-gray-300 text-black"
           }`}
       >
         {!ligaSeleccionada && (
@@ -157,7 +157,7 @@ function App() {
             LIGA_ESPAÑOLA={LIGA_ESPAÑOLA}
             tabla={tabla}
             setTabla={setTabla}
-            
+            PREMIER_LEAGUE={PREMIER_LEAGUE}
           />
         )}
 

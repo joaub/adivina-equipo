@@ -1,5 +1,7 @@
+
+
 export default function LigaSelector({ darkMode, setDarkMode,
-    seleccionarLiga, LIGA_ARGENTINA, LIGA_ESPAÑOLA, tabla, setTabla }) {
+    seleccionarLiga, LIGA_ARGENTINA, LIGA_ESPAÑOLA, tabla, setTabla, PREMIER_LEAGUE }) {
 
 
     const eliminarHistorial = () => {
@@ -34,15 +36,21 @@ export default function LigaSelector({ darkMode, setDarkMode,
                 >
                     LaLiga España
                 </button>
+                <button
+                    onClick={() => seleccionarLiga(PREMIER_LEAGUE, "Premier League")}
+                    className="text-xl font-bold border bg-blue-400 rounded-xl"
+                >
+                    Premier League
+                </button>
                 <h2 className="text-2xl font-bold mt-6">Tabla de puntajes</h2>
-                <div className="w-full max-w-md bg-white text-black p-4 rounded-xl mt-3">
+                <div className="w-full max-w-md flex flex-col bg-blue-400 text-black p-4 rounded-xl mt-3">
                     {tabla.length === 0 && <p>No hay puntajes aún</p>}
                     {tabla.map((t, i) => (
-                        <p key={i} className="border-b py-1">
+                        <p key={i} className="border-b py-1 font-bold ">
                             <b>{t.liga}</b>: {t.puntos} pts — <i>{t.fecha}</i>
                         </p>
                     ))}
-                    <button onClick={eliminarHistorial}>Eliminar historial</button>
+                    <button onClick={eliminarHistorial} className="rounded-xl p-1 items-center text-center border bg-sky-300">Eliminar historial</button>
                 
                 </div>
 

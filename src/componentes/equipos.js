@@ -52,3 +52,26 @@ export const LIGA_ESPAÑOLA = [
     {   nombre: "Villarreal",img:"/public/escudos/ligaEspaña/villarreal.png"},
     
 ]
+
+export const PREMIER_LEAGUE = [
+    {   nombre: "Manchester United",img:"/public/escudos/premierLeague/manchester_united.png"},
+    {   nombre: "Liverpool",img:"/public/escudos/premierLeague/liverpool.png"},
+    {   nombre: "Chelsea",img:"/public/escudos/premierLeague/chelsea.png"},
+    {   nombre: "Arsenal",img:"/public/escudos/premierLeague/arsenal.png"},
+    {   nombre: "Manchester City",img:"/public/escudos/premierLeague/manchester-city.png"},
+    {   nombre: "Tottenham Hotspur",img:"/public/escudos/premierLeague/tottenham.png"},
+    {   nombre: "Everton",img:"/public/escudos/premierLeague/everton.png"},
+    {   nombre: "Aston Villa",img:"/public/escudos/premierLeague/aston_villa.png"},
+    {   nombre: "Leeds United",img:"/public/escudos/premierLeague/leeds.png"},
+    {   nombre: "West Ham United",img:"/public/escudos/premierLeague/west-ham.png"},
+    {   nombre: "Newcastle United",img:"/public/escudos/premierLeague/newcastle.png"},
+    {   nombre: "Wolverhampton Wanderers",img:"/public/escudos/premierLeague/wolves.png"},
+    {   nombre: "Nottingham Forest",img:"/public/escudos/premierLeague/nottingham.png"},
+    {   nombre: "Bournemouth", img:"/public/escudos/premierLeague/bournemouth.png" },
+    {   nombre:"Brighton Hove Albion", img:"/public/escudos/premierLeague/brighton.png" },
+    {   nombre:"Crystal Palace", img:"/public/escudos/premierLeague/crystal-palace.png" },
+    {   nombre:"brentford", img:"/public/escudos/premierLeague/brentford.png" },
+    {   nombre:"Fulham", img:"/public/escudos/premierLeague/fulham.png" },
+    {   nombre:"sunderland", img:"/public/escudos/premierLeague/sunderland.png" },
+    {   nombre:"Burnley", img:"/public/escudos/premierLeague/burnley.png" },
+]
