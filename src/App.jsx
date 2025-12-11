@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { LIGA_ESPAÑOLA, LIGA_ARGENTINA,PREMIER_LEAGUE } from './componentes/equipos'
+import { LIGA_ESPAÑOLA, LIGA_ARGENTINA, PREMIER_LEAGUE } from './componentes/equipos'
 import LigaSelector from "./componentes/elegirLiga";
 import Juego from "./componentes/juego";
 
@@ -17,6 +17,8 @@ function App() {
   const [racha, setRacha] = useState(0);
   const [yaAcertado, setYaAcertado] = useState(false);
   const [ligaActual, setLigaActual] = useState(null);
+  const [pista, setPista] = useState(null);
+  const [pistaUsada, setPistaUsada] = useState(false);
   const [tabla, setTabla] = useState(() => {
     try {
       const saved = localStorage.getItem("tablaPuntajes");
@@ -38,8 +40,8 @@ function App() {
       puntos: puntos,
       fecha: new Date().toLocaleDateString(),
     };
-    
-    
+
+
     const nuevaTabla = [...tabla, entrada];
     setTabla(nuevaTabla);
     localStorage.setItem("tablaPuntajes", JSON.stringify(nuevaTabla));
@@ -77,6 +79,7 @@ function App() {
       setVidas(prev => {
         const nuevas = prev - 1;
 
+
         if (navigator.vibrate) {
           navigator.vibrate(300); // vibra 300 ms
           console.log(navigator.vibrate ? "Soporta vibración" : "NO soporta vibración");
@@ -86,7 +89,7 @@ function App() {
         if (nuevas <= 0) {
           setPerdiste(true);
           guardarPuntaje(seleccionarLiga, puntos);
-          
+
         }
 
         return nuevas;
@@ -127,6 +130,8 @@ function App() {
     setMensaje("");
     setVidas(3);
     setYaAcertado(false);
+    setPista(null);
+    setPistaUsada(false);
   };
 
   const reiniciar = () => {
@@ -140,6 +145,16 @@ function App() {
     setPerdiste(false);
     setPuntos(0);
     setRacha(0);
+    setPista(null);
+    setPistaUsada(false);
+  };
+  const generarPista = () => {
+    const nombre = equipoActual.nombre.replace(/\s+/g, "");
+    const randomIndex = Math.floor(Math.random() * nombre.length);
+    const letra = nombre[randomIndex].toUpperCase();
+
+    setPista(letra);
+    setPistaUsada(true);
   };
 
   return (
@@ -176,6 +191,10 @@ function App() {
             perdiste={perdiste}
             puntos={puntos}
             racha={racha}
+            pista={pista}
+            setPista={setPista}
+            generarPista={generarPista}
+            pistaUsada={pistaUsada}
           />
         )}
 

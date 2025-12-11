@@ -13,8 +13,11 @@ export default function Juego({
     vidas,
     perdiste,
     puntos,
-    racha
-    
+    racha,
+    pista,
+    generarPista,
+    pistaUsada,
+
 }) {
 
 
@@ -33,11 +36,31 @@ export default function Juego({
             <p className="text-lg mt-1">🔥 Racha: {racha}</p>
 
             <p className="text-3xl text-center mt-4 p-2">
-                {equipoActual.nombre
-                    .split("")
-                    .map(c => (c === " " ? "\u00A0\u00A0" : "_ "))
-                    .join(" ")}
+                {equipoActual.nombre.split("").map((c, i) => {
+                    if (c === " ") return <span key={i}>&nbsp;&nbsp;</span>;
+
+                    const letra = c.toUpperCase();
+
+                    // Si la pista coincide → mostrarla en amarillo
+                    if(generarPista && letra === pista){
+                        return (
+                            <span key={i} className="text-yellow-400 font-extrabold">
+                                {letra}&nbsp;
+                            </span>
+                        );
+                    }
+                 
+                    return <span key={i}>_ </span>;
+                })}
             </p>
+            {vidas === 1 && !pistaUsada && (
+                <button
+                    onClick={generarPista}
+                    className="px-6 py-2 bg-purple-600 text-white rounded-xl mt-3"
+                >
+                    Usar pista
+                </button>
+            )}
             {/* Mostrar cantidad de letras */}
             <p className="text-xl text-center mt-4 tracking-widest font-bold">
                 {equipoActual.nombre.replace(/\s/g, "").replace(/[^a-zA-Z]/g, "").length} letras
@@ -45,6 +68,7 @@ export default function Juego({
             <p className="text-xl font-bold mb-4">
                 ❤️ Vidas: {vidas}
             </p>
+
 
             <div className="p-5 mt-7">
                 <input
