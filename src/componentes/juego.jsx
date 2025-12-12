@@ -17,7 +17,6 @@ export default function Juego({
     pista,
     generarPista,
     pistaUsada,
-
 }) {
 
     
@@ -29,7 +28,7 @@ export default function Juego({
                 src={equipoActual.img}
                 
                 className={`w-50 h-50 rounded-xl m-4 bg-white mx-auto block 
-                ${vidas > 1 ? "blur-sm" : ""} `}
+                ${mensaje === "correcto" ? "" : vidas > 1 ? "blur-sm" : ""}`}
                 
             />
             <p className="text-xl font-bold mt-2">
