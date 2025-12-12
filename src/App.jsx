@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { LIGA_ESPAÑOLA, LIGA_ARGENTINA, PREMIER_LEAGUE } from './componentes/equipos'
+import { LIGA_ESPAÑOLA, LIGA_ARGENTINA, PREMIER_LEAGUE,SERIE_A } from './componentes/equipos'
 import LigaSelector from "./componentes/elegirLiga";
 import Juego from "./componentes/juego";
 
@@ -175,6 +175,7 @@ function App() {
             tabla={tabla}
             setTabla={setTabla}
             PREMIER_LEAGUE={PREMIER_LEAGUE}
+            SERIE_A={SERIE_A}
           />
         )}
 
@@ -198,7 +199,6 @@ function App() {
             generarPista={generarPista}
             pistaUsada={pistaUsada}
             
-           
           />
         )}
 

@@ -75,3 +75,26 @@ export const PREMIER_LEAGUE = [
     {   nombre:"sunderland", img:"/public/escudos/premierLeague/sunderland.png" },
     {   nombre:"Burnley", img:"/public/escudos/premierLeague/burnley.png" },
 ]
+
+export const SERIE_A = [
+    {  nombre: "Atalanta",img:"/public/escudos/serieA/atalanta.png"},
+    {  nombre: "Bologna",img:"/public/escudos/serieA/bologna.png"},
+    {  nombre: "Cagliari",img:"/public/escudos/serieA/cagliari.png"},
+    {  nombre:"Como",img:"/public/escudos/serieA/como.png"},
+    {  nombre:"Cremonese",img:"/public/escudos/serieA/cremonese.png"},
+    {  nombre: "fiorentina",img:"/public/escudos/serieA/fiorentina.png"},
+    {  nombre: "Genoa",img:"/public/escudos/serieA/genoa.png"},
+    {  nombre:"Hellas Verona",img:"/public/escudos/serieA/hellas-verona.png"},
+    {  nombre: "Inter de Milan",img:"/public/escudos/serieA/inter.png"},
+    {  nombre: "Juventus",img:"/public/escudos/serieA/juventus.png"},
+    {  nombre: "Lazio",img:"/public/escudos/serieA/lazio.png"},
+    {  nombre: "Lecce",img:"/public/escudos/serieA/lecce.jpg"},
+    {  nombre: "Milan",img:"/public/escudos/serieA/milan.png"},
+    {  nombre:"Napoli",img:"/public/escudos/serieA/napoli.png"},
+    {  nombre:"Parma",img:"/public/escudos/serieA/parma.png"},
+    {  nombre:"Pisa",img:"/public/escudos/serieA/pisa.png"},
+    {  nombre:"Roma",img:"/public/escudos/serieA/roma.png"},
+    {  nombre: "Sassuolo",img:"/public/escudos/serieA/sassuolo.png"},
+    {  nombre:"Torino",img:"/public/escudos/serieA/torino.png"},
+    {  nombre:"Udinese",img:"/public/escudos/serieA/udinese.png"},
+]

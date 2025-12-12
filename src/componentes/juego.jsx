@@ -24,7 +24,7 @@ export default function Juego({
 
     return (
         <div className="text-center">
-
+            
             <img
                 src={equipoActual.img}
                 
@@ -51,7 +51,7 @@ export default function Juego({
                             </span>
                         );
                     }
-                 
+                
                     return <span key={i}>_ </span>;
                 })}
             </p>
@@ -91,7 +91,9 @@ export default function Juego({
             </div>
 
             {mensaje === "correcto" && (
-                <p className="text-green-400 text-xl font-semibold">¡Correcto! 🎉</p>
+                <div>
+                    <p className="text-green-600 text-xl font-semibold">¡Correcto! 🎉</p>
+                </div>
             )}
             {mensaje === "incorrecto" && (
                 <p className="text-red-400 text-xl font-semibold">
@@ -106,13 +108,13 @@ export default function Juego({
 
             {mensaje !== "respuesta vacia" && mensaje !== "" && mensaje !== "incorrecto" && (
                 <button onClick={siguiente}
-                    className="px-6 py-2 border rounded-lg mt-4">
+                    className="px-6 py-2 border rounded-lg mt-4 bg-cyan-500 font-bold">
                     Siguiente
                 </button>
             )}
             {completado && (
                 <div className="text-center mt-10">
-                    <p className="text-3xl font-bold text-green-400">
+                    <p className="text-3xl font-bold text-green-500">
                         ¡Liga completada! 🎉
                     </p>
 

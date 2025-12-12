@@ -1,7 +1,9 @@
+import { SERIE_A } from "./equipos";
 
 
 export default function LigaSelector({ darkMode, setDarkMode,
-    seleccionarLiga, LIGA_ARGENTINA, LIGA_ESPAÑOLA, tabla, setTabla, PREMIER_LEAGUE }) {
+    seleccionarLiga, LIGA_ARGENTINA, LIGA_ESPAÑOLA, 
+    tabla, setTabla, PREMIER_LEAGUE,SERIE_A }) {
 
 
     const eliminarHistorial = () => {
@@ -41,6 +43,12 @@ export default function LigaSelector({ darkMode, setDarkMode,
                     className="text-xl font-bold border bg-blue-400 rounded-xl"
                 >
                     Premier League
+                </button>
+                <button
+                    onClick={() => seleccionarLiga(SERIE_A, "Serie A")}
+                    className="text-xl font-bold border bg-blue-400 rounded-xl"
+                >
+                    Serie A
                 </button>
                 <h2 className="text-2xl font-bold mt-6">Tabla de puntajes</h2>
                 <div className="w-full max-w-md flex flex-col bg-blue-400 text-black p-4 rounded-xl mt-3">
