@@ -157,10 +157,12 @@ function App() {
     setPistaUsada(true);
   };
 
+  
+
   return (
     <>
       <div
-        className={`min-h-screen flex flex-col items-center p-5  ${darkMode ? "bg-gray-700 text-white" : "bg-gray-300 text-black"
+        className={`min-h-screen flex flex-col items-center p-5  ${darkMode ? "bg-blue-900 text-white" : "bg-sky-300 text-black"
           }`}
       >
         {!ligaSeleccionada && (
@@ -195,6 +197,8 @@ function App() {
             setPista={setPista}
             generarPista={generarPista}
             pistaUsada={pistaUsada}
+            
+           
           />
         )}
 

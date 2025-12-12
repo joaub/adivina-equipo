@@ -17,9 +17,9 @@ export default function LigaSelector({ darkMode, setDarkMode,
 
             <button
                 onClick={() => setDarkMode(!darkMode)}
-                className={`px-2 absolute top-5 right-60 border ${darkMode ? "bg-dark" : "bg-white"}`}
+                className={`px-2 absolute top-5 right-60 border ${darkMode ? "bg-gray-900" : "bg-gray-200"}`}
             >
-                modo {darkMode ? "oscuro" : "claro"}
+                {darkMode ? "☀" : "🌙"}
             </button>
 
             <div className="p-2 m-3 flex flex-col gap-3">
@@ -50,7 +50,7 @@ export default function LigaSelector({ darkMode, setDarkMode,
                             <b>{t.liga}</b>: {t.puntos} pts — <i>{t.fecha}</i>
                         </p>
                     ))}
-                    <button onClick={eliminarHistorial} className="rounded-xl p-1 items-center text-center border bg-sky-300">Eliminar historial</button>
+                    <button onClick={eliminarHistorial} className="rounded-xl p-1 items-center text-center border bg-sky-500">Eliminar historial</button>
                 
                 </div>
 

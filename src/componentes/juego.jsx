@@ -20,15 +20,17 @@ export default function Juego({
 
 }) {
 
-
+    
 
     return (
         <div className="text-center">
 
             <img
                 src={equipoActual.img}
+                
                 className={`w-50 h-50 rounded-xl m-4 bg-white mx-auto block 
                 ${vidas > 1 ? "blur-sm" : ""} `}
+                
             />
             <p className="text-xl font-bold mt-2">
                 ⭐ Puntos: {puntos}
