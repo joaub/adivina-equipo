@@ -17,19 +17,23 @@ export default function Juego({
     pista,
     generarPista,
     pistaUsada,
+    tiempo
 }) {
 
-    
+
 
     return (
         <div className="text-center">
-            
+            <p className={`text-xl font-bold mb-2 
+                ${tiempo <= 5 ? "text-red-400 animate-pulse" : ""}`}>
+                ⏱️ Tiempo: {tiempo}s
+            </p>
             <img
                 src={equipoActual.img}
-                
+
                 className={`w-50 h-50 rounded-xl m-4 bg-white mx-auto block 
                 ${mensaje === "correcto" ? "" : vidas > 1 ? "blur-sm" : ""}`}
-                
+
             />
             <p className="text-xl font-bold mt-2">
                 ⭐ Puntos: {puntos}
@@ -43,14 +47,14 @@ export default function Juego({
                     const letra = c.toUpperCase();
 
                     // Si la pista coincide → mostrarla en amarillo
-                    if(generarPista && letra === pista){
+                    if (generarPista && letra === pista) {
                         return (
                             <span key={i} className="text-yellow-400 font-extrabold">
                                 {letra}&nbsp;
                             </span>
                         );
                     }
-                
+
                     return <span key={i}>_ </span>;
                 })}
             </p>

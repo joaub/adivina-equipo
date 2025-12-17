@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { LIGA_ESPAÑOLA, LIGA_ARGENTINA, PREMIER_LEAGUE,SERIE_A } from './componentes/equipos'
 import LigaSelector from "./componentes/elegirLiga";
 import Juego from "./componentes/juego";
@@ -32,6 +32,10 @@ function App() {
       return [];
     }
   });
+  
+const TIEMPO_POR_EQUIPO = 30;
+const [tiempo, setTiempo] = useState(TIEMPO_POR_EQUIPO);
+const [timerActivo, setTimerActivo] = useState(false);
 
 
   const guardarPuntaje = () => {
@@ -46,6 +50,39 @@ function App() {
     setTabla(nuevaTabla);
     localStorage.setItem("tablaPuntajes", JSON.stringify(nuevaTabla));
   };
+
+  useEffect(() => {
+  if (!timerActivo || perdiste || completado) return;
+
+  const interval = setInterval(() => {
+    setTiempo(prev => {
+      if (prev <= 1) {
+        manejarTiempoAgotado();
+        return TIEMPO_POR_EQUIPO;
+      }
+      return prev - 1;
+    });
+  }, 1000);
+
+  return () => clearInterval(interval);
+}, [timerActivo, perdiste, completado]);
+
+
+const manejarTiempoAgotado = () => {
+  setVidas(prev => {
+    const nuevas = prev - 1;
+
+    if (navigator.vibrate) navigator.vibrate(300);
+
+    if (nuevas <= 0) {
+      setPerdiste(true);
+      guardarPuntaje();
+    }
+
+    return nuevas;
+  });
+};
+
 
   const verificar = () => {
     if (mensaje === "correcto") return;
@@ -71,6 +108,7 @@ function App() {
         setPuntos(prev => prev + puntosGanados);
         setRacha(prev => prev + 1);
         setYaAcertado(true);
+        setTimerActivo(false)
       };
       manejarAcierto();
       return;
@@ -113,6 +151,8 @@ function App() {
 
     setPuntos(0);
     setRacha(0);
+    setTiempo(TIEMPO_POR_EQUIPO);
+    setTimerActivo(true);
   };
 
   const siguiente = () => {
@@ -132,6 +172,8 @@ function App() {
     setYaAcertado(false);
     setPista(null);
     setPistaUsada(false);
+    setTiempo(TIEMPO_POR_EQUIPO);
+    
   };
 
   const reiniciar = () => {
@@ -147,6 +189,8 @@ function App() {
     setRacha(0);
     setPista(null);
     setPistaUsada(false);
+    setTimerActivo(false);
+    setTiempo(TIEMPO_POR_EQUIPO);
   };
   const generarPista = () => {
     const nombre = equipoActual.nombre.replace(/\s+/g, "");
@@ -198,7 +242,7 @@ function App() {
             setPista={setPista}
             generarPista={generarPista}
             pistaUsada={pistaUsada}
-            
+            tiempo={tiempo}
           />
         )}
 
