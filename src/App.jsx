@@ -173,7 +173,7 @@ const manejarTiempoAgotado = () => {
     setPista(null);
     setPistaUsada(false);
     setTiempo(TIEMPO_POR_EQUIPO);
-    
+    setTimerActivo(true);
   };
 
   const reiniciar = () => {
