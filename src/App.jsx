@@ -210,7 +210,8 @@ function App() {
 
   return (
     <>
-      <div className="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] p-4 flex flex-col items-center">
+      <div className="min-h-screen text-[var(--color-text)] p-4 flex flex-col items-center"
+      style={{ background: "var(--color-bg)" }}>
 
         <div className="absolute top-4 right-4 z-50">
           <ThemeSelector />
