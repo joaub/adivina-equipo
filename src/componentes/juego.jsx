@@ -1,7 +1,7 @@
 
 
 export default function Juego({
-    darkMode,
+    
     equipoActual,
     respuesta,
     setRespuesta,
@@ -81,8 +81,7 @@ export default function Juego({
                     onKeyDown={(e) => e.key === "Enter" && verificar()}
                     onChange={(e) => setRespuesta(e.target.value)}
                     placeholder="Escribe el nombre del equipo..."
-                    className={`w-72 rounded-xl border text-center 
-            ${darkMode ? "bg-gray-600 text-white" : "bg-white text-black"}`}
+                    className={`w-72 rounded-xl border text-center `}
                 />
 
                 <button

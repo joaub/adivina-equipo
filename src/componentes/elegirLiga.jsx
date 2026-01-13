@@ -1,7 +1,7 @@
 import { SERIE_A } from "./equipos";
 
 
-export default function LigaSelector({ darkMode, setDarkMode,
+export default function LigaSelector({ 
     seleccionarLiga, LIGA_ARGENTINA, LIGA_ESPAÑOLA, 
     tabla, setTabla, PREMIER_LEAGUE,SERIE_A }) {
 
@@ -17,12 +17,7 @@ export default function LigaSelector({ darkMode, setDarkMode,
         <div>
             <h1 className="text-3xl font-bold p-4">Adivina el equipo por el escudo</h1>
 
-            <button
-                onClick={() => setDarkMode(!darkMode)}
-                className={`px-2 absolute top-5 right-60 border ${darkMode ? "bg-gray-900" : "bg-gray-200"}`}
-            >
-                {darkMode ? "☀" : "🌙"}
-            </button>
+           
 
             <div className="p-2 m-3 flex flex-col gap-3">
                 <button

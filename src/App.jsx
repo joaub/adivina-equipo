@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react'
-import { LIGA_ESPAÑOLA, LIGA_ARGENTINA, PREMIER_LEAGUE,SERIE_A } from './componentes/equipos'
+import { LIGA_ESPAÑOLA, LIGA_ARGENTINA, PREMIER_LEAGUE, SERIE_A } from './componentes/equipos'
 import LigaSelector from "./componentes/elegirLiga";
 import Juego from "./componentes/juego";
+import ThemeSelector from './componentes/theme';
+import './index.css'
+
 
 function App() {
-  const [darkMode, setDarkMode] = useState(false);
   const [ligaSeleccionada, setLigaSeleccionada] = useState(null);
   const [equipoActual, setEquipoActual] = useState(null);
   const [respuesta, setRespuesta] = useState("");
@@ -32,10 +34,10 @@ function App() {
       return [];
     }
   });
-  
-const TIEMPO_POR_EQUIPO = 30;
-const [tiempo, setTiempo] = useState(TIEMPO_POR_EQUIPO);
-const [timerActivo, setTimerActivo] = useState(false);
+
+  const TIEMPO_POR_EQUIPO = 30;
+  const [tiempo, setTiempo] = useState(TIEMPO_POR_EQUIPO);
+  const [timerActivo, setTimerActivo] = useState(false);
 
 
   const guardarPuntaje = () => {
@@ -52,36 +54,36 @@ const [timerActivo, setTimerActivo] = useState(false);
   };
 
   useEffect(() => {
-  if (!timerActivo || perdiste || completado) return;
+    if (!timerActivo || perdiste || completado) return;
 
-  const interval = setInterval(() => {
-    setTiempo(prev => {
-      if (prev <= 1) {
-        manejarTiempoAgotado();
-        return TIEMPO_POR_EQUIPO;
+    const interval = setInterval(() => {
+      setTiempo(prev => {
+        if (prev <= 1) {
+          manejarTiempoAgotado();
+          return TIEMPO_POR_EQUIPO;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [timerActivo, perdiste, completado]);
+
+
+  const manejarTiempoAgotado = () => {
+    setVidas(prev => {
+      const nuevas = prev - 1;
+
+      if (navigator.vibrate) navigator.vibrate(300);
+
+      if (nuevas <= 0) {
+        setPerdiste(true);
+        guardarPuntaje();
       }
-      return prev - 1;
+
+      return nuevas;
     });
-  }, 1000);
-
-  return () => clearInterval(interval);
-}, [timerActivo, perdiste, completado]);
-
-
-const manejarTiempoAgotado = () => {
-  setVidas(prev => {
-    const nuevas = prev - 1;
-
-    if (navigator.vibrate) navigator.vibrate(300);
-
-    if (nuevas <= 0) {
-      setPerdiste(true);
-      guardarPuntaje();
-    }
-
-    return nuevas;
-  });
-};
+  };
 
 
   const verificar = () => {
@@ -104,8 +106,9 @@ const manejarTiempoAgotado = () => {
         } else {
           puntosGanados = 1 + racha;
         }
+        let bonusTiempo = tiempo >= 10 ? 2 : tiempo >= 5 ? 1 : 0;
 
-        setPuntos(prev => prev + puntosGanados);
+        setPuntos(prev => prev + puntosGanados + bonusTiempo);
         setRacha(prev => prev + 1);
         setYaAcertado(true);
         setTimerActivo(false)
@@ -201,18 +204,21 @@ const manejarTiempoAgotado = () => {
     setPistaUsada(true);
   };
 
-  
+
+
+
 
   return (
     <>
-      <div
-        className={`min-h-screen flex flex-col items-center p-5  ${darkMode ? "bg-blue-900 text-white" : "bg-sky-300 text-black"
-          }`}
-      >
+      <div className="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] p-4 flex flex-col items-center">
+
+        <div className="absolute top-4 right-4 z-50">
+          <ThemeSelector />
+        </div>
+
         {!ligaSeleccionada && (
           <LigaSelector
-            darkMode={darkMode}
-            setDarkMode={setDarkMode}
+            
             seleccionarLiga={seleccionarLiga}
             LIGA_ARGENTINA={LIGA_ARGENTINA}
             LIGA_ESPAÑOLA={LIGA_ESPAÑOLA}
@@ -225,7 +231,7 @@ const manejarTiempoAgotado = () => {
 
         {ligaSeleccionada && equipoActual && (
           <Juego
-            darkMode={darkMode}
+            
             equipoActual={equipoActual}
             respuesta={respuesta}
             setRespuesta={setRespuesta}
