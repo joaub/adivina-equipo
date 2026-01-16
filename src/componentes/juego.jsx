@@ -1,7 +1,7 @@
 
 
 export default function Juego({
-    
+
     equipoActual,
     respuesta,
     setRespuesta,
@@ -14,16 +14,16 @@ export default function Juego({
     perdiste,
     puntos,
     racha,
-    pista,
-    generarPista,
+    opciones,
     pistaUsada,
+    generarPista,
     tiempo
 }) {
 
 
 
     return (
-        <div className="text-center">
+        <div className="w-full max-w-md bg-black/40 backdrop-blur p-6 rounded-xl text-center flex flex-col gap-4">
             <p className={`text-xl font-bold mb-2 
                 ${tiempo <= 5 ? "text-red-400 animate-pulse" : ""}`}>
                 ⏱️ Tiempo: {tiempo}s
@@ -43,28 +43,26 @@ export default function Juego({
             <p className="text-3xl text-center mt-4 p-2">
                 {equipoActual.nombre.split("").map((c, i) => {
                     if (c === " ") return <span key={i}>&nbsp;&nbsp;</span>;
-
-                    const letra = c.toUpperCase();
-
-                    // Si la pista coincide → mostrarla en amarillo
-                    if (generarPista && letra === pista) {
-                        return (
-                            <span key={i} className="text-yellow-400 font-extrabold">
-                                {letra}&nbsp;
-                            </span>
-                        );
-                    }
+                    
 
                     return <span key={i}>_ </span>;
                 })}
             </p>
-            {vidas === 1 && !pistaUsada && (
-                <button
-                    onClick={generarPista}
-                    className="px-6 py-2 bg-purple-600 text-white rounded-xl mt-3"
-                >
-                    Usar pista
-                </button>
+            {vidas === 1 && opciones.length > 0 && !pistaUsada && (
+                
+                        <div className="grid grid-cols-2 gap-2 mt-4">
+                            {opciones.map((op, i) => (
+                                <button
+                                    key={i}
+                                    onClick={() => setRespuesta(op.nombre)}
+                                    className="px-3 py-2 rounded bg-white/10 hover:bg-white/20 text-white text-sm"
+                                >
+                                    {op.nombre}
+                                </button>
+                            ))}
+                        </div>
+                    
+                
             )}
             {/* Mostrar cantidad de letras */}
             <p className="text-xl text-center mt-4 tracking-widest font-bold">

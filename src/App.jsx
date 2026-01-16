@@ -19,7 +19,7 @@ function App() {
   const [racha, setRacha] = useState(0);
   const [yaAcertado, setYaAcertado] = useState(false);
   const [ligaActual, setLigaActual] = useState(null);
-  const [pista, setPista] = useState(null);
+  const [opciones, setOpciones] = useState([]);
   const [pistaUsada, setPistaUsada] = useState(false);
   const [tabla, setTabla] = useState(() => {
     try {
@@ -173,7 +173,7 @@ function App() {
     setMensaje("");
     setVidas(3);
     setYaAcertado(false);
-    setPista(null);
+    setOpciones([]);
     setPistaUsada(false);
     setTiempo(TIEMPO_POR_EQUIPO);
     setTimerActivo(true);
@@ -190,21 +190,32 @@ function App() {
     setPerdiste(false);
     setPuntos(0);
     setRacha(0);
-    setPista(null);
+    setOpciones([]);
     setPistaUsada(false);
     setTimerActivo(false);
     setTiempo(TIEMPO_POR_EQUIPO);
   };
+
+  const generarPistaOpciones = (cantidad = 4) => {
+  const equiposLiga = ligaSeleccionada;
+
+  if (!equiposLiga || !equipoActual) return;
+
+  const incorrectos = equiposLiga
+    .filter(e => e.nombre !== equipoActual.nombre)
+    .sort(() => Math.random() - 0.5)
+    .slice(0, cantidad - 1);
+
+  const opcionesFinales = [...incorrectos, equipoActual]
+    .sort(() => Math.random() - 0.5);
+
+  setOpciones(opcionesFinales);
+  setPistaUsada(true);
+};
+
   const generarPista = () => {
-    const nombre = equipoActual.nombre.replace(/\s+/g, "");
-    const randomIndex = Math.floor(Math.random() * nombre.length);
-    const letra = nombre[randomIndex].toUpperCase();
-
-    setPista(letra);
-    setPistaUsada(true);
-  };
-
-
+  generarPistaOpciones(4); // 3 o 4
+};
 
 
 
@@ -245,8 +256,7 @@ function App() {
             perdiste={perdiste}
             puntos={puntos}
             racha={racha}
-            pista={pista}
-            setPista={setPista}
+            opciones={opciones}
             generarPista={generarPista}
             pistaUsada={pistaUsada}
             tiempo={tiempo}
