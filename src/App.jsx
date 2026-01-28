@@ -130,7 +130,7 @@ function App() {
         if (nuevas <= 0) {
           setPerdiste(true);
           guardarPuntaje(seleccionarLiga, puntos);
-
+          return 0;
         }
 
         return nuevas;
