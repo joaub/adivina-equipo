@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 
 const presetThemes = {
+    azul: {
+        bg: "linear-gradient(135deg, #0f172a 0%, #2563eb 50%, #38bdf8 100%)",
+        text: "#e0f2fe",
+    },
     boca: {
         bg: "linear-gradient(to bottom, #0b1c3d 0%, #0b1c3d 30%, #facc15 30%, #facc15 70%, #0b1c3d 70%, #0b1c3d 100%)",
         text: "#facc15",
@@ -13,10 +17,7 @@ const presetThemes = {
         bg: "linear-gradient(135deg, #4c1d95 0%, #7c3aed 50%, #a855f7 100%)",
         text: "#e9d5ff",
     },
-    azul: {
-        bg: "linear-gradient(135deg, #0f172a 0%, #2563eb 50%, #38bdf8 100%)",
-        text: "#e0f2fe",
-    },
+    
 };
 
 const ThemeSelector = () => {

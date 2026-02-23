@@ -9,7 +9,6 @@ import './index.css'
 function App() {
   const [ligaSeleccionada, setLigaSeleccionada] = useState(null);
   const [equipoActual, setEquipoActual] = useState(null);
-  const [respuesta, setRespuesta] = useState("");
   const [mensaje, setMensaje] = useState("");
   const [equiposRestantes, setEquiposRestantes] = useState([]);
   const [completado, setCompletado] = useState(false);
@@ -20,7 +19,7 @@ function App() {
   const [yaAcertado, setYaAcertado] = useState(false);
   const [ligaActual, setLigaActual] = useState(null);
   const [opciones, setOpciones] = useState([]);
-  const [pistaUsada, setPistaUsada] = useState(false);
+
   const [tabla, setTabla] = useState(() => {
     try {
       const saved = localStorage.getItem("tablaPuntajes");
@@ -85,36 +84,36 @@ function App() {
     });
   };
 
+  useEffect(() => {
+    if (!equipoActual || !ligaSeleccionada) return;
 
-  const verificar = () => {
+    const incorrectos = ligaSeleccionada
+      .filter(e => e.nombre !== equipoActual.nombre)
+      .sort(() => Math.random() - 0.5)
+      .slice(0, 3);
+
+    const opcionesFinales = [equipoActual, ...incorrectos]
+      .sort(() => Math.random() - 0.5);
+
+    setOpciones(opcionesFinales);
+  }, [equipoActual]);
+
+
+
+  const elegirOpciones = (opcion) => {
     if (mensaje === "correcto") return;
 
-    if (respuesta.trim() === "") {
-      setMensaje("respuesta vacia");
-      return;
-    }
-    if (respuesta.trim().toLowerCase() === equipoActual.nombre.toLowerCase()) {
+    if (opcion.nombre === equipoActual.nombre) {
       setMensaje("correcto");
 
-      const manejarAcierto = () => {
-        if (yaAcertado) return; // evita que siga sumando
+      let puntosGanados = racha === 0 ? 1 : 1 + racha;
+      let bonusTiempo = tiempo >= 10 ? 2 : tiempo >= 5 ? 1 : 0;
+    
+      setPuntos(prev => prev + puntosGanados + bonusTiempo);
+      setRacha(prev => prev + 1);
+      setYaAcertado(true);
+      setTimerActivo(false);
 
-        let puntosGanados = 0;
-
-        if (racha === 0) {
-          puntosGanados = 1;
-        } else {
-          puntosGanados = 1 + racha;
-        }
-        let bonusTiempo = tiempo >= 10 ? 2 : tiempo >= 5 ? 1 : 0;
-
-        setPuntos(prev => prev + puntosGanados + bonusTiempo);
-        setRacha(prev => prev + 1);
-        setYaAcertado(true);
-        setTimerActivo(false)
-      };
-      manejarAcierto();
-      return;
     } else {
       setMensaje("incorrecto");
       setVidas(prev => {
@@ -145,9 +144,8 @@ function App() {
     setLigaActual(nombre);
     setLigaSeleccionada(ligaArray);
     setEquipoActual(random);
-    setEquiposRestantes(copia.filter(e => e !== random));
-    setCompletado(false);
-    setRespuesta("");
+    setEquiposRestantes(copia);
+    
     setMensaje("");
     setPerdiste(false);
     setCompletado(false);
@@ -169,12 +167,12 @@ function App() {
 
     setEquipoActual(random);
     setEquiposRestantes(copia.filter(e => e !== random));
-    setRespuesta("");
+    
     setMensaje("");
     setVidas(3);
     setYaAcertado(false);
     setOpciones([]);
-    setPistaUsada(false);
+
     setTiempo(TIEMPO_POR_EQUIPO);
     setTimerActivo(true);
   };
@@ -184,45 +182,24 @@ function App() {
     setEquipoActual(null);
     setEquiposRestantes([]);
     setCompletado(false);
-    setRespuesta("");
+    
     setMensaje("");
     setVidas(3);
     setPerdiste(false);
     setPuntos(0);
     setRacha(0);
-    setOpciones([]);
-    setPistaUsada(false);
+    
     setTimerActivo(false);
     setTiempo(TIEMPO_POR_EQUIPO);
   };
 
-  const generarPistaOpciones = (cantidad = 4) => {
-  const equiposLiga = ligaSeleccionada;
-
-  if (!equiposLiga || !equipoActual) return;
-
-  const incorrectos = equiposLiga
-    .filter(e => e.nombre !== equipoActual.nombre)
-    .sort(() => Math.random() - 0.5)
-    .slice(0, cantidad - 1);
-
-  const opcionesFinales = [...incorrectos, equipoActual]
-    .sort(() => Math.random() - 0.5);
-
-  setOpciones(opcionesFinales);
-  setPistaUsada(true);
-};
-
-  const generarPista = () => {
-  generarPistaOpciones(4); // 3 o 4
-};
 
 
 
   return (
     <>
       <div className="min-h-screen text-[var(--color-text)] p-4 flex flex-col items-center"
-      style={{ background: "var(--color-bg)" }}>
+        style={{ background: "var(--color-bg)" }}>
 
         <div className="absolute top-4 right-4 z-50">
           <ThemeSelector />
@@ -230,7 +207,7 @@ function App() {
 
         {!ligaSeleccionada && (
           <LigaSelector
-            
+
             seleccionarLiga={seleccionarLiga}
             LIGA_ARGENTINA={LIGA_ARGENTINA}
             LIGA_ESPAÑOLA={LIGA_ESPAÑOLA}
@@ -243,12 +220,11 @@ function App() {
 
         {ligaSeleccionada && equipoActual && (
           <Juego
-            
+
             equipoActual={equipoActual}
-            respuesta={respuesta}
-            setRespuesta={setRespuesta}
+          
             mensaje={mensaje}
-            verificar={verificar}
+            
             siguiente={siguiente}
             reiniciar={reiniciar}
             completado={completado}
@@ -257,8 +233,7 @@ function App() {
             puntos={puntos}
             racha={racha}
             opciones={opciones}
-            generarPista={generarPista}
-            pistaUsada={pistaUsada}
+        
             tiempo={tiempo}
           />
         )}
