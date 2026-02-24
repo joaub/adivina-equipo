@@ -4,7 +4,7 @@ export default function Juego({
 
     equipoActual,
     mensaje,
-    
+
     siguiente,
     completado,
     reiniciar,
@@ -15,6 +15,7 @@ export default function Juego({
     opciones,
     tiempo,
     elegirOpciones,
+    opcionSeleccionada
 }) {
 
 
@@ -43,16 +44,39 @@ export default function Juego({
 
             {/* OPCIONES */}
             <div className="grid grid-cols-2 gap-2">
-                {opciones.map((op, i) => (
-                    <button
-                        key={i}
-                        onClick={() => elegirOpciones(op)}
-                        disabled={perdiste || completado}
-                        className="py-2 rounded bg-white/10 hover:bg-white/20 text-sm"
-                    >
-                        {op.nombre}
-                    </button>
-                ))}
+                {opciones.map((op, i) => {
+                    let estilo = "bg-white/10 hover:bg-white/20";
+
+                    // Cuando gana
+                    if (mensaje === "correcto") {
+                        if (op.nombre === equipoActual.nombre) {
+                            estilo = "bg-green-600";
+                        }
+                    }
+                    if (mensaje === "incorrecto") {
+                        if (op.nombre === opcionSeleccionada) {
+                            estilo = "bg-red-600 transition-none";
+                        }
+                    }
+
+                    // Cuando pierde todas las vidas
+                    if (perdiste) {
+                        if (op.nombre === equipoActual.nombre) {
+                            estilo = "bg-green-600";
+                        }
+                    }
+
+                    return (
+                        <button
+                            key={i}
+                            onClick={() => elegirOpciones(op)}
+                            disabled={perdiste || completado}
+                            className={`py-2 rounded text-sm transition ${estilo}`}
+                        >
+                            {op.nombre}
+                        </button>
+                    );
+                })}
             </div>
 
 

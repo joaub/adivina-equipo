@@ -19,6 +19,7 @@ function App() {
   const [yaAcertado, setYaAcertado] = useState(false);
   const [ligaActual, setLigaActual] = useState(null);
   const [opciones, setOpciones] = useState([]);
+  const [opcionSeleccionada, setOpcionSeleccionada] = useState(null);
 
   const [tabla, setTabla] = useState(() => {
     try {
@@ -103,8 +104,10 @@ function App() {
   const elegirOpciones = (opcion) => {
     if (mensaje === "correcto") return;
 
+
     if (opcion.nombre === equipoActual.nombre) {
       setMensaje("correcto");
+      setOpcionSeleccionada(opcion.nombre);
 
       let puntosGanados = racha === 0 ? 1 : 1 + racha;
       let bonusTiempo = tiempo >= 10 ? 2 : tiempo >= 5 ? 1 : 0;
@@ -116,6 +119,7 @@ function App() {
 
     } else {
       setMensaje("incorrecto");
+      
       setVidas(prev => {
         const nuevas = prev - 1;
 
@@ -129,6 +133,7 @@ function App() {
         if (nuevas <= 0) {
           setPerdiste(true);
           guardarPuntaje(seleccionarLiga, puntos);
+          setOpcionSeleccionada(equipoActual.nombre);
           return 0;
         }
 
@@ -172,7 +177,7 @@ function App() {
     setVidas(3);
     setYaAcertado(false);
     setOpciones([]);
-
+    setOpcionSeleccionada(null);
     setTiempo(TIEMPO_POR_EQUIPO);
     setTimerActivo(true);
   };
@@ -235,6 +240,7 @@ function App() {
             opciones={opciones}
             elegirOpciones={elegirOpciones}
             tiempo={tiempo}
+            opcionSeleccionada={opcionSeleccionada}
           />
         )}
 
