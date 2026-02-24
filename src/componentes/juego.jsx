@@ -3,10 +3,8 @@
 export default function Juego({
 
     equipoActual,
-    respuesta,
-    setRespuesta,
     mensaje,
-    verificar,
+    
     siguiente,
     completado,
     reiniciar,
@@ -15,9 +13,8 @@ export default function Juego({
     puntos,
     racha,
     opciones,
-    pistaUsada,
-    generarPista,
-    tiempo
+    tiempo,
+    elegirOpciones,
 }) {
 
 
@@ -25,6 +22,7 @@ export default function Juego({
     return (
         <div className="w-full max-w-md bg-black/40 backdrop-blur p-6 rounded-xl text-center flex flex-col gap-4">
             <div className="flex justify-between text-sm opacity-80">
+
                 <p className={`text-xl font-bold mb-2 
                 ${tiempo <= 5 ? "text-red-400 animate-pulse" : ""}`}>
                     ⏱️ Tiempo: {tiempo}s
@@ -42,15 +40,22 @@ export default function Juego({
 
             />
 
-            
-            <input
-                type="text"
-                value={respuesta}
-                onChange={(e) => setRespuesta(e.target.value)}
-                placeholder="Escribí el equipo"
-                className="w-full px-4 py-2 rounded bg-black/50 text-white text-center outline-none"
-                disabled={perdiste || completado}
-            />
+
+            {/* OPCIONES */}
+            <div className="grid grid-cols-2 gap-2">
+                {opciones.map((op, i) => (
+                    <button
+                        key={i}
+                        onClick={() => elegirOpciones(op)}
+                        disabled={perdiste || completado}
+                        className="py-2 rounded bg-white/10 hover:bg-white/20 text-sm"
+                    >
+                        {op.nombre}
+                    </button>
+                ))}
+            </div>
+
+
             <p className="text-xl font-bold mb-4">
                 ❤️ Vidas: {vidas}
             </p>
@@ -65,49 +70,13 @@ export default function Juego({
                 </p>
             )}
 
-            {/* BOTONES PRINCIPALES */}
-            <div className="flex gap-2">
-                <button
-                    onClick={verificar}
-                    className="flex-1 py-2 rounded bg-green-600 hover:bg-green-700"
-                >
-                    Verificar
-                </button>
-            {vidas > 0 && vidas < 2 && ( 
-                <button
-                    onClick={generarPista}
-                    disabled={pistaUsada }
-                    
-                    className={`flex-1 py-2 rounded ${pistaUsada
-                            ? "bg-gray-500 cursor-not-allowed"
-                            : "bg-blue-600 hover:bg-blue-700"
-                        }`}
-                >
-                    🧠 Pista
-                </button>
-                )}
-            </div>
 
-            {/* 🔑 PISTA POR OPCIONES */}
-            {opciones.length > 0 && vidas > 0 && mensaje !== "correcto" && (
-                <div className="grid grid-cols-2 gap-2 mt-3">
-                    {opciones.map((op, i) => (
-                        <button
-                            key={i}
-                            onClick={() => setRespuesta(op.nombre)}
-                            className="py-2 rounded bg-white/10 hover:bg-white/20 text-sm"
-                        >
-                            {op.nombre}
-                        </button>
-                    ))}
-                </div>
-            )}
 
             {/* FOOTER */}
             <div className="flex justify-between text-sm opacity-80 mt-2">
                 <span>⭐ {puntos}</span>
 
-                {(mensaje === "correcto" ) && (
+                {(mensaje === "correcto") && (
                     <button
                         onClick={siguiente}
                         className="underline"

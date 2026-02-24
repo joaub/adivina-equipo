@@ -96,7 +96,7 @@ function App() {
       .sort(() => Math.random() - 0.5);
 
     setOpciones(opcionesFinales);
-  }, [equipoActual]);
+  }, [equipoActual, ligaSeleccionada]);
 
 
 
@@ -233,7 +233,7 @@ function App() {
             puntos={puntos}
             racha={racha}
             opciones={opciones}
-        
+            elegirOpciones={elegirOpciones}
             tiempo={tiempo}
           />
         )}
