@@ -21,8 +21,8 @@ export default function Juego({
 
 
     return (
-        <div className="w-full max-w-md bg-black/40 backdrop-blur p-6 rounded-xl text-center flex flex-col gap-4">
-            <div className="flex justify-between text-sm opacity-80">
+        <div className="w-full max-w-md bg-black/40 backdrop-blur p-6 rounded-xl text-center flex flex-col gap-4 ">
+            <div className="flex justify-between text-sm opacity-80 ">
 
                 <p className={`text-xl font-bold mb-2 
                 ${tiempo <= 5 ? "text-red-400 animate-pulse" : ""}`}>
@@ -37,7 +37,7 @@ export default function Juego({
                 src={equipoActual.img}
 
                 className={`w-50 h-50 rounded-xl m-4 bg-white mx-auto block 
-                ${mensaje === "correcto" ? "" : "blur-sm"}`}
+                ${mensaje === "correcto" || perdiste ? "blur-0" : "blur-sm"}`}
 
             />
 
@@ -62,7 +62,8 @@ export default function Juego({
                     // Cuando pierde todas las vidas
                     if (perdiste) {
                         if (op.nombre === equipoActual.nombre) {
-                            estilo = "bg-green-600";
+                            estilo = "bg-green-600 animate-pulse ";
+                        
                         }
                     }
 
@@ -104,6 +105,7 @@ export default function Juego({
                     <button
                         onClick={siguiente}
                         className="underline"
+                        disabled={perdiste || completado}
                     >
                         Siguiente →
                     </button>

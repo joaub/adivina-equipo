@@ -35,7 +35,7 @@ function App() {
     }
   });
 
-  const TIEMPO_POR_EQUIPO = 30;
+  const TIEMPO_POR_EQUIPO = 20;
   const [tiempo, setTiempo] = useState(TIEMPO_POR_EQUIPO);
   const [timerActivo, setTimerActivo] = useState(false);
 
@@ -174,7 +174,7 @@ function App() {
     setEquiposRestantes(copia.filter(e => e !== random));
     
     setMensaje("");
-    setVidas(3);
+    
     setYaAcertado(false);
     setOpciones([]);
     setOpcionSeleccionada(null);
