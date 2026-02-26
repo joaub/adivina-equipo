@@ -119,7 +119,7 @@ function App() {
 
     } else {
       setMensaje("incorrecto");
-      
+      setOpcionSeleccionada(opcion.nombre);
       setVidas(prev => {
         const nuevas = prev - 1;
 
