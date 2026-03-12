@@ -21,7 +21,7 @@ export default function Juego({
 
 
     return (
-        <div className="w-full max-w-md bg-black/40 backdrop-blur p-6 rounded-xl text-center flex flex-col gap-4 ">
+        <div className="w-full max-w-md bg-black/80 backdrop-blur p-6 rounded-xl text-center flex flex-col gap-4 ">
             <div className="flex justify-between text-sm opacity-80 ">
 
                 <p className={`text-xl font-bold mb-2 

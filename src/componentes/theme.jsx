@@ -7,11 +7,11 @@ const presetThemes = {
     },
     boca: {
         bg: "linear-gradient(to bottom, #0b1c3d 0%, #0b1c3d 30%, #facc15 30%, #facc15 70%, #0b1c3d 70%, #0b1c3d 100%)",
-        text: "#facc15",
+        text: "#ffffff",
     },
     river: {
         bg: "linear-gradient(135deg, #ffffff 0%, #ffffff 40%, #dc2626 40%, #dc2626 60%, #ffffff 60%, #ffffff 100%)",
-        text: "#991b1b",
+        text: "#ffffff",
     },
     purpura: {
         bg: "linear-gradient(135deg, #4c1d95 0%, #7c3aed 50%, #a855f7 100%)",

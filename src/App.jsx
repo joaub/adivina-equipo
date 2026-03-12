@@ -4,6 +4,7 @@ import LigaSelector from "./componentes/elegirLiga";
 import Juego from "./componentes/juego";
 import ThemeSelector from './componentes/theme';
 import './index.css'
+import Dificultad from './componentes/dificultad';
 
 
 function App() {
@@ -38,7 +39,7 @@ function App() {
   const TIEMPO_POR_EQUIPO = 20;
   const [tiempo, setTiempo] = useState(TIEMPO_POR_EQUIPO);
   const [timerActivo, setTimerActivo] = useState(false);
-  const [dificultad, setDificultad] = useState(null); 
+  const [dificultad, setDificultad] = useState(null);
 
   const guardarPuntaje = () => {
     const entrada = {
@@ -54,12 +55,12 @@ function App() {
   };
 
   const DIFICULTADES = {
-    facil :{
-      opciones: 4,
+    facil: {
+      opciones: 3,
       tiempo: 30,
       blur: "blur-sm"
     },
-    normal :{
+    normal: {
       opciones: 4,
       tiempo: 20,
       blur: "blur-md"
@@ -104,22 +105,23 @@ function App() {
   };
 
   useEffect(() => {
-    if (!equipoActual || !ligaSeleccionada) return;
-    
-    
+    if (!equipoActual || !ligaSeleccionada || !dificultad) return;
+
+    const cantidad = DIFICULTADES[dificultad].opciones;
+
     let incorrectos = ligaSeleccionada
       .filter(e => e.nombre !== equipoActual.nombre)
       .sort(() => Math.random() - 0.5)
-      .slice(0, 3);
+      .slice(0, cantidad - 1);
 
     let opcionesFinales = [equipoActual, ...incorrectos]
       .sort(() => Math.random() - 0.5);
 
     setOpciones(opcionesFinales);
-    
-  
-    
-  }, [equipoActual, ligaSeleccionada,dificultad]);
+
+
+
+  }, [equipoActual, ligaSeleccionada, dificultad]);
 
 
 
@@ -133,12 +135,12 @@ function App() {
 
       let puntosGanados = racha === 0 ? 1 : 1 + racha;
       let bonusTiempo = tiempo >= 10 ? 2 : tiempo >= 5 ? 1 : 0;
-    
+
       setPuntos(prev => prev + puntosGanados + bonusTiempo);
       setRacha(prev => prev + 1);
       setYaAcertado(true);
       setTimerActivo(false);
-      
+
     } else {
       setMensaje("incorrecto");
       setOpcionSeleccionada(opcion.nombre);
@@ -172,16 +174,16 @@ function App() {
     setLigaSeleccionada(ligaArray);
     setEquipoActual(random);
     setEquiposRestantes(copia);
-    
+
     setMensaje("");
     setPerdiste(false);
     setCompletado(false);
 
     setPuntos(0);
     setRacha(0);
-    setTiempo(TIEMPO_POR_EQUIPO);
+    setTiempo(DIFICULTADES[dificultad].tiempo);
     setTimerActivo(true);
-    
+
   };
 
   const siguiente = () => {
@@ -195,15 +197,15 @@ function App() {
 
     setEquipoActual(random);
     setEquiposRestantes(copia.filter(e => e !== random));
-    
+
     setMensaje("");
-    
+
     setYaAcertado(false);
     setOpciones([]);
     setOpcionSeleccionada(null);
-    setTiempo(TIEMPO_POR_EQUIPO);
+    setTiempo(DIFICULTADES[dificultad].tiempo);
     setTimerActivo(true);
-    
+
   };
 
   const reiniciar = () => {
@@ -211,16 +213,16 @@ function App() {
     setEquipoActual(null);
     setEquiposRestantes([]);
     setCompletado(false);
-    
+
     setMensaje("");
     setVidas(3);
     setPerdiste(false);
     setPuntos(0);
     setRacha(0);
-    
+
     setTimerActivo(false);
-    setTiempo(TIEMPO_POR_EQUIPO);
-    setDificultad("normal");
+    setTiempo(DIFICULTADES[dificultad].tiempo);
+    setDificultad(null);
   };
 
 
@@ -235,20 +237,14 @@ function App() {
           <ThemeSelector />
         </div>
 
-        {setDificultad && (
-          <div className="absolute top-4 left-4 z-50">
-            <select
-              value={dificultad}
-              onChange={e => setDificultad(e.target.value)}
-            >
-              <option value="fácil">Fácil</option>
-              <option value="normal">Normal</option>
-              <option value="difícil">Difícil</option>
-            </select>
-          </div>
+        {!dificultad && (
+          <Dificultad 
+            setDificultad={setDificultad}
+          
+          />
         )}
 
-        {!ligaSeleccionada && (
+        {!ligaSeleccionada && dificultad && (
           <LigaSelector
 
             seleccionarLiga={seleccionarLiga}
@@ -265,9 +261,9 @@ function App() {
           <Juego
 
             equipoActual={equipoActual}
-          
+
             mensaje={mensaje}
-            
+
             siguiente={siguiente}
             reiniciar={reiniciar}
             completado={completado}

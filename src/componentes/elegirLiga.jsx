@@ -17,7 +17,7 @@ export default function LigaSelector({
         <div>
             <h1 className="text-3xl font-bold p-4">Adivina el equipo por el escudo</h1>
 
-           
+        
 
             <div className="p-2 m-3 flex flex-col gap-3">
                 <button
