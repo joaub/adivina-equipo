@@ -38,7 +38,7 @@ function App() {
   const TIEMPO_POR_EQUIPO = 20;
   const [tiempo, setTiempo] = useState(TIEMPO_POR_EQUIPO);
   const [timerActivo, setTimerActivo] = useState(false);
-
+  const [dificultad, setDificultad] = useState(null); 
 
   const guardarPuntaje = () => {
     const entrada = {
@@ -52,6 +52,24 @@ function App() {
     setTabla(nuevaTabla);
     localStorage.setItem("tablaPuntajes", JSON.stringify(nuevaTabla));
   };
+
+  const DIFICULTADES = {
+    facil :{
+      opciones: 4,
+      tiempo: 30,
+      blur: "blur-sm"
+    },
+    normal :{
+      opciones: 4,
+      tiempo: 20,
+      blur: "blur-md"
+    },
+    dificil: {
+      opciones: 8,
+      tiempo: 20,
+      blur: "blur-lg"
+    }
+  }
 
   useEffect(() => {
     if (!timerActivo || perdiste || completado) return;
@@ -87,17 +105,21 @@ function App() {
 
   useEffect(() => {
     if (!equipoActual || !ligaSeleccionada) return;
-
-    const incorrectos = ligaSeleccionada
+    
+    
+    let incorrectos = ligaSeleccionada
       .filter(e => e.nombre !== equipoActual.nombre)
       .sort(() => Math.random() - 0.5)
       .slice(0, 3);
 
-    const opcionesFinales = [equipoActual, ...incorrectos]
+    let opcionesFinales = [equipoActual, ...incorrectos]
       .sort(() => Math.random() - 0.5);
 
     setOpciones(opcionesFinales);
-  }, [equipoActual, ligaSeleccionada]);
+    
+  
+    
+  }, [equipoActual, ligaSeleccionada,dificultad]);
 
 
 
@@ -116,7 +138,7 @@ function App() {
       setRacha(prev => prev + 1);
       setYaAcertado(true);
       setTimerActivo(false);
-
+      
     } else {
       setMensaje("incorrecto");
       setOpcionSeleccionada(opcion.nombre);
@@ -159,6 +181,7 @@ function App() {
     setRacha(0);
     setTiempo(TIEMPO_POR_EQUIPO);
     setTimerActivo(true);
+    
   };
 
   const siguiente = () => {
@@ -180,6 +203,7 @@ function App() {
     setOpcionSeleccionada(null);
     setTiempo(TIEMPO_POR_EQUIPO);
     setTimerActivo(true);
+    
   };
 
   const reiniciar = () => {
@@ -196,6 +220,7 @@ function App() {
     
     setTimerActivo(false);
     setTiempo(TIEMPO_POR_EQUIPO);
+    setDificultad("normal");
   };
 
 
@@ -209,6 +234,19 @@ function App() {
         <div className="absolute top-4 right-4 z-50">
           <ThemeSelector />
         </div>
+
+        {setDificultad && (
+          <div className="absolute top-4 left-4 z-50">
+            <select
+              value={dificultad}
+              onChange={e => setDificultad(e.target.value)}
+            >
+              <option value="fácil">Fácil</option>
+              <option value="normal">Normal</option>
+              <option value="difícil">Difícil</option>
+            </select>
+          </div>
+        )}
 
         {!ligaSeleccionada && (
           <LigaSelector
